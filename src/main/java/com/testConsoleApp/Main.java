@@ -2,9 +2,12 @@ package com.testConsoleApp;
 
 import com.testConsoleApp.entities.Author;
 import com.testConsoleApp.entities.Book;
+import com.testConsoleApp.entities.Student;
+import com.testConsoleApp.entities.Teacher;
 import com.testConsoleApp.interfaces.MessageRenderer;
 import com.testConsoleApp.repository.AuthorRepository;
 import com.testConsoleApp.repository.BookRepository;
+import com.testConsoleApp.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -23,6 +26,9 @@ public class Main implements CommandLineRunner {
 
     @Autowired
     MessageRenderer messageRenderer;
+
+    @Autowired
+    TeacherRepository teacherRepository;
 
     public Main(MessageRenderer messageRenderer) {
         this.messageRenderer = messageRenderer;
@@ -44,5 +50,15 @@ public class Main implements CommandLineRunner {
         author.getBooks().add(book);
 
         authorRepository.save(author);
+
+
+        Teacher teacher = new Teacher();
+        teacher.setFirstName("Qleb");
+        teacher.setLastName("Skripnikov");
+        Student student = new Student();
+        student.setFirstName("Isa");
+        student.setLastName("Verdiyev");
+
+        teacherRepository.save(teacher);
     }
 }
