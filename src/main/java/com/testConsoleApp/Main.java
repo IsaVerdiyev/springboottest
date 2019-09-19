@@ -4,6 +4,7 @@ import com.testConsoleApp.entities.Author;
 import com.testConsoleApp.entities.Book;
 import com.testConsoleApp.entities.Student;
 import com.testConsoleApp.entities.Teacher;
+import com.testConsoleApp.interfaces.AuthorService;
 import com.testConsoleApp.interfaces.MessageRenderer;
 import com.testConsoleApp.repository.AuthorRepository;
 import com.testConsoleApp.repository.BookRepository;
@@ -30,6 +31,9 @@ public class Main implements CommandLineRunner {
     @Autowired
     TeacherRepository teacherRepository;
 
+    @Autowired
+    AuthorService authorService;
+
     public Main(MessageRenderer messageRenderer) {
         this.messageRenderer = messageRenderer;
     }
@@ -46,8 +50,10 @@ public class Main implements CommandLineRunner {
         author.setSurname("Surname");
         Book book = new Book();
         book.setName("Book 1");
-        book.setAuthor(author);
-        author.getBooks().add(book);
+
+        authorService.addBooksInAuthor(author, new ArrayList<Book>(){
+            {add(book);}
+        });
 
         authorRepository.save(author);
 
